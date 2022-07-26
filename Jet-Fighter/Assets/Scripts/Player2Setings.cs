@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Mono.Cecil;
+using TMPro;
 using UnityEngine;
 
 public class Player2Setings : MonoBehaviour
@@ -15,6 +16,10 @@ public class Player2Setings : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpawnTime;
     private float _bulletSpawnWaitTime;
+
+    [Header("Score Settings")] 
+    [SerializeField] private TextMeshProUGUI player2ScoreText;
+    private int _player2Score;
     
     void Start()
     {
@@ -25,6 +30,7 @@ public class Player2Setings : MonoBehaviour
     
     void Update()
     {
+        BoundryControl();
         Move();
         Fire();
     }
@@ -60,4 +66,31 @@ public class Player2Setings : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, _zAxisRotation);
         }
     }
+    
+    private void BoundryControl()
+    {
+        //+Y Axis Control
+        if (5.35 < transform.position.y)
+            transform.position = new Vector3(transform.position.x, -5.25f, 0);
+        
+        //-Y Axis Control
+        if (transform.position.y < -5.35)
+            transform.position = new Vector3(transform.position.x, -transform.position.y, 0);
+        
+        //+X Axis Control
+        if (9.25 < transform.position.x)
+            transform.position = new Vector3(-9.15f, transform.position.y, 0);
+        
+        //-X Axis Control
+        if (transform.position.x < -9.25)
+            transform.position = new Vector3(-transform.position.x, transform.position.y, 0);
+        
+    }
+    
+    public void AddScore()
+    {
+        _player2Score++;
+        player2ScoreText.text = _player2Score.ToString();
+    }
+    
 }
