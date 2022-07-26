@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Mono.Cecil;
 using UnityEngine;
 
-public class Player1Setings : MonoBehaviour
+public class Player2Setings : MonoBehaviour
 {
     [Header("Movement & Rotation")]
     [SerializeField] private float speed;
@@ -31,7 +31,7 @@ public class Player1Setings : MonoBehaviour
 
     private void Fire()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             
             if (_bulletSpawnWaitTime <= 0)
@@ -48,13 +48,13 @@ public class Player1Setings : MonoBehaviour
     {
         transform.position += transform.right * speed * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             _zAxisRotation -= rotationSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Euler(0, 0, _zAxisRotation);
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             _zAxisRotation += rotationSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Euler(0, 0, _zAxisRotation);
