@@ -14,34 +14,43 @@ public class Player2Bullet : MonoBehaviour
     private string enemyTag = "Player1";
     
     private GameObject _player;
-    private GameObject _enemy; //Player1
+    private Transform enemy; //Player1
 
+    private List<Vector2> enemyBoundries = new List<Vector2>();
+
+    private Vector2 leftUpPoint;
+    private Vector2 leftDownPoint;
+    private Vector2 rightUpPoint;
+    private Vector2 rightDownPoint;
+    
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag(playerTag);
-        _enemy = GameObject.FindGameObjectWithTag(enemyTag);   
+        enemy = GameObject.FindGameObjectWithTag(enemyTag).transform;   
     }
 
     void Update()
-    {
-        BoundryControl();
+    {   
+        EnemyBoundryClear();
+        EnemyBoundryUpdate();
+        
+        MapBoundryControl();
         Move();
     }
 
     private void Move()
     {
-        if (Vector3.Distance(transform.position, _enemy.transform.position) <= 0.475)
-        {
-            _player.GetComponent<Player2Setings>().AddScore();
-            Destroy(gameObject);
-        }
+        
+        var pos = transform.position;
+        var movement = bulletSpeed * transform.right * Time.deltaTime;
+        var newPos = pos + movement;
 
-        transform.position += transform.right * bulletSpeed * Time.deltaTime;
+        transform.position = newPos;
 
         Destroy(gameObject, 8f);
     }
     
-    private void BoundryControl()
+    private void MapBoundryControl()
     {
         //+Y Axis Control
         if (5.35 < transform.position.y)
@@ -60,4 +69,38 @@ public class Player2Bullet : MonoBehaviour
             transform.position = new Vector3(-transform.position.x, transform.position.y, 0);
         
     }
+    
+    private void EnemyBoundryUpdate()
+    {
+        
+        leftUpPoint = new Vector2(enemy.position.x - enemy.localScale.x / 2, enemy.position.y + enemy.localScale.y / 2);
+        leftDownPoint = new Vector2(enemy.position.x - enemy.localScale.x / 2, enemy.position.y - enemy.localScale.y / 2);
+        
+        rightUpPoint = new Vector2(enemy.position.x + enemy.localScale.x / 2, enemy.position.y + enemy.localScale.y / 2);
+        rightDownPoint = new Vector2(enemy.position.x + enemy.localScale.x / 2, enemy.position.y - enemy.localScale.y / 2);
+        
+        Debug.DrawLine(leftUpPoint,leftDownPoint,Color.red);
+        Debug.DrawLine(leftUpPoint, rightUpPoint, Color.red);
+        Debug.DrawLine(rightUpPoint,rightDownPoint,Color.red);
+        Debug.DrawLine(rightDownPoint,leftDownPoint,Color.red);
+        
+        enemyBoundries.Add(leftUpPoint);
+        enemyBoundries.Add(leftDownPoint);
+        
+        enemyBoundries.Add(leftDownPoint);
+        enemyBoundries.Add(rightDownPoint);
+        
+        enemyBoundries.Add(rightDownPoint);
+        enemyBoundries.Add(rightUpPoint);
+        
+        enemyBoundries.Add(rightUpPoint);
+        enemyBoundries.Add(leftUpPoint);
+        
+    }
+    
+    private void EnemyBoundryClear()
+    {
+        enemyBoundries.Clear();
+    }
+    
 }

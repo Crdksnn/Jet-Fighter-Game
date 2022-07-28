@@ -8,7 +8,6 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/FPS.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player1Bullet.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player2Setings.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -72,6 +71,7 @@
       <updated>1658822186767</updated>
       <workItem from="1658822198126" duration="6306000" />
       <workItem from="1658836661162" duration="4335000" />
+      <workItem from="1658991599626" duration="6044000" />
     </task>
     <servers />
   </component>
