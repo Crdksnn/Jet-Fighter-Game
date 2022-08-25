@@ -13,7 +13,7 @@ public class Player2Bullet : MonoBehaviour
     private string playerTag = "Player2"; 
     private string enemyTag = "Player1";
     
-    private GameObject _player;
+    private GameObject player;
     private Transform enemy; //Player1
 
     private List<Vector2> enemyBoundries = new List<Vector2>();
@@ -22,18 +22,21 @@ public class Player2Bullet : MonoBehaviour
     private Vector2 leftDownPoint;
     private Vector2 rightUpPoint;
     private Vector2 rightDownPoint;
+
+    [SerializeField] private float xAxisBoundry;
+    [SerializeField] private float yAxisBoundry;
     
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag(playerTag);
+        player = GameObject.FindGameObjectWithTag(playerTag);
         enemy = GameObject.FindGameObjectWithTag(enemyTag).transform;   
     }
 
     void Update()
     {   
+        
         EnemyBoundryClear();
         EnemyBoundryUpdate();
-        
         MapBoundryControl();
         Move();
     }
@@ -44,7 +47,15 @@ public class Player2Bullet : MonoBehaviour
         var pos = transform.position;
         var movement = bulletSpeed * transform.right * Time.deltaTime;
         var newPos = pos + movement;
+        
+        Debug.DrawLine(transform.position, pos + movement,Color.red);
 
+        if (LineIntersectionControl(pos, pos + movement))
+        {
+            player.GetComponent<Player2Setings>().AddScore();
+            Destroy(gameObject);
+        }
+        
         transform.position = newPos;
 
         Destroy(gameObject, 8f);
@@ -53,20 +64,20 @@ public class Player2Bullet : MonoBehaviour
     private void MapBoundryControl()
     {
         //+Y Axis Control
-        if (5.35 < transform.position.y)
-            transform.position = new Vector3(transform.position.x, -5.25f, 0);
+        if (yAxisBoundry < transform.position.y)
+            transform.position = new Vector3(transform.position.x, -yAxisBoundry, 0);
         
         //-Y Axis Control
-        if (transform.position.y < -5.35)
-            transform.position = new Vector3(transform.position.x, -transform.position.y, 0);
+        if (transform.position.y < -yAxisBoundry)
+            transform.position = new Vector3(transform.position.x, yAxisBoundry, 0);
         
         //+X Axis Control
-        if (9.25 < transform.position.x)
-            transform.position = new Vector3(-9.15f, transform.position.y, 0);
+        if (xAxisBoundry < transform.position.x)
+            transform.position = new Vector3(-xAxisBoundry, transform.position.y, 0);
         
         //-X Axis Control
-        if (transform.position.x < -9.25)
-            transform.position = new Vector3(-transform.position.x, transform.position.y, 0);
+        if (transform.position.x < -xAxisBoundry)
+            transform.position = new Vector3(xAxisBoundry, transform.position.y, 0);
         
     }
     
@@ -101,6 +112,19 @@ public class Player2Bullet : MonoBehaviour
     private void EnemyBoundryClear()
     {
         enemyBoundries.Clear();
+    }
+    
+    private bool LineIntersectionControl(Vector2 bulletCenter, Vector2 bulletMovement)
+    {
+        for (int i = 0; i < enemyBoundries.Count; i += 2)
+        {
+            if (Math2d.LineSegmentsIntersection(bulletCenter, bulletMovement, enemyBoundries[i], enemyBoundries[i + 1]))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
     
 }

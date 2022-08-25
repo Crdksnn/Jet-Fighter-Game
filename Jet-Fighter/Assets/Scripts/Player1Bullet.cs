@@ -21,6 +21,11 @@ public class Player1Bullet : MonoBehaviour
     private Vector2 rightUpPoint = Vector2.zero;
     private Vector2 rightDownPoint = Vector2.zero;
     
+    //Map Boundries
+
+    [SerializeField] private float xAxisBoundry;
+    [SerializeField] private float yAxisBoundry;
+    
     void Start()
     {
         enemy = GameObject.FindGameObjectWithTag(enemyTag).transform;
@@ -62,20 +67,20 @@ public class Player1Bullet : MonoBehaviour
     private void MapBoundryControl()
     {
         //+Y Axis Control
-        if (5.35 < transform.position.y)
-            transform.position = new Vector3(transform.position.x, -5.25f, 0);
+        if (yAxisBoundry < transform.position.y)
+            transform.position = new Vector3(transform.position.x, -yAxisBoundry, 0);
         
         //-Y Axis Control
-        if (transform.position.y < -5.35)
-            transform.position = new Vector3(transform.position.x, -transform.position.y, 0);
+        if (transform.position.y < -yAxisBoundry)
+            transform.position = new Vector3(transform.position.x, yAxisBoundry, 0);
         
         //+X Axis Control
-        if (9.25 < transform.position.x)
-            transform.position = new Vector3(-9.15f, transform.position.y, 0);
+        if (xAxisBoundry < transform.position.x)
+            transform.position = new Vector3(-xAxisBoundry, transform.position.y, 0);
         
         //-X Axis Control
-        if (transform.position.x < -9.25)
-            transform.position = new Vector3(-transform.position.x, transform.position.y, 0);
+        if (transform.position.x < -xAxisBoundry)
+            transform.position = new Vector3(xAxisBoundry, transform.position.y, 0);
         
     }
     

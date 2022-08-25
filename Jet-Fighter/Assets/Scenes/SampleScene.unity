@@ -221,12 +221,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a1bec2135a44a499a01cdbd1144923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 3
   rotationSpeed: 180
   firePoint: {fileID: 989486354}
   bulletPrefab: {fileID: 4853213969075097433, guid: 659bbf065a12b1a44bcdee90114dd79f, type: 3}
   bulletSpawnTime: 0.5
   player2ScoreText: {fileID: 875251505}
+  yAxisBoundry: 5.25
+  xAxisBoundry: 9.15
 --- !u!1 &144154229
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,12 +259,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d62a1f04a5ee74f94fdf66daf5421d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 3
   rotationSpeed: 180
   firePoint: {fileID: 153475434}
   bulletPrefab: {fileID: 4853213969075097433, guid: b7c7f82763ff45345b47255979193f81, type: 3}
   bulletSpawnTime: 0.5
   player1scoreText: {fileID: 674727190}
+  yAxisBoundry: 5.35
+  xAxisBoundry: 9.25
 --- !u!212 &144154231
 SpriteRenderer:
   m_ObjectHideFlags: 0

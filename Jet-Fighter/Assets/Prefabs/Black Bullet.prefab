@@ -97,5 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d278c009c9f2124e85c45d756eccf86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player2ScoreText: {fileID: 0}
   bulletSpeed: 7
+  xAxisBoundry: 9.25
+  yAxisBoundry: 5.35
